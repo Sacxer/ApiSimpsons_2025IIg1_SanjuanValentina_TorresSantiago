@@ -229,6 +229,9 @@
   font-size: 2rem;
   margin-bottom: 40px;
 }
+.creators-section h4 {
+ font-family: 'Simpsonfont', 'Comic Neue', cursive;
+}
 
 .creators-grid {
   display: grid;
@@ -245,6 +248,7 @@
   transition: transform 0.2s ease;
   width: 100%;
   max-width: 240px;
+  
 }
 
 .creator-card:hover {
@@ -268,4 +272,97 @@
 .creator-card p {
   font-size: 0.9rem;
   color: #666;
+}
+
+
+/* ===============================
+   Nuevo estilo de Personajes Populares
+=================================*/
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+}
+
+.character-card-simpson {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  width: 220px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.character-card-simpson p{
+  margin: 3px;
+}
+
+.character-card-simpson:hover {
+  background: #fff9d6;
+  box-shadow: 0 8px 25px rgba(255, 217, 15, 0.4);
+  transform: translateY(-6px);
+}
+
+.character-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.character-name {
+  font-weight: bold;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.character-occupation {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.character-info {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.badge.age {
+  background: #f1f1f1;
+}
+
+.badge.status.alive {
+  background: #c8f7c5;
+  color: #1f7a1f;
+}
+
+.badge.status.dead {
+  background: #f7c5c5;
+  color: #a70000;
+}
+
+.character-quote {
+  font-style: italic;
+  color: #555;
+  font-size: 0.85rem;
+}
+
+.frase-corta{
+  margin: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* número de líneas visibles */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
