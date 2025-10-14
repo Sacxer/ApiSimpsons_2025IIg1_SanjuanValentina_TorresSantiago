@@ -14,7 +14,7 @@ import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/entregable3">
       <div className="app-root">
         {/* NavBar persistente */}
         <header>

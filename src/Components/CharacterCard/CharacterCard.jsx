@@ -31,7 +31,7 @@ function CharacterCard({ character }) {
           <div className="meta-item">
             <i className="bi bi-briefcase meta-icon"></i>
             <strong>Ocupación:</strong>
-            <span>{character.occupation || 'Desconocida'}</span>
+            <span className="frase-corta">{character.occupation || 'Desconocida'}</span>
           </div>
           
           <div className="meta-item">

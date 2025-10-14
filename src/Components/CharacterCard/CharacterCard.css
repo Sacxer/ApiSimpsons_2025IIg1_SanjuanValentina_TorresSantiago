@@ -84,6 +84,7 @@
 }
 
 .character-info h3 {
+  padding: 15px;
   font-family: 'Simpsonfont', 'Comic Neue', cursive;
   font-size: 1.4rem;
   margin: 0 0 0.75rem 0;
@@ -162,7 +163,24 @@
   letter-spacing: 0.5px;
 }
 
+.character-image img{
+  background-image: url("https://cdn.pixabay.com/photo/2012/02/22/09/12/background-15226_1280.jpg");
+}
+
+.frase-corta{
+  margin: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* número de líneas visibles */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .character-quote {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* número de líneas visibles */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-style: italic;
   color: #4A5568;
   font-size: 0.9rem;

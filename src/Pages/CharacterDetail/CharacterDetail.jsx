@@ -55,7 +55,7 @@ function CharacterDetail() {
   return (
     <div className="character-detail">
       <Link to="/personajes" className="back-btn">← Volver a Personajes</Link>
-      
+      <div className="clouds-background"></div>
       <div className="character-detail-content">
         <div className="character-image">
           <img 
