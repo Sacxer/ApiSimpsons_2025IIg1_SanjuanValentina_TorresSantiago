@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Pagination from '../../Components/Pagination/Pagination';
 import Loader from '../../Components/Loader/Loader';
 import './Episodes.css';
-import staticImage from '../../assets/img3-removebg-preview.png';
+import staticImage from '../../assets/img4.png';
 
 function Episodes() {
   const [allEpisodes, setAllEpisodes] = useState([]);

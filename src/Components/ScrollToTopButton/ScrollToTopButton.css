@@ -1,7 +1,7 @@
 .scroll-to-top {
   position: fixed;
-  bottom: 25px;
-  right: 25px;
+  bottom: 30px;
+  right: 5%;
   background: none;
   border: none;
   cursor: pointer;
@@ -9,12 +9,13 @@
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.4s ease, transform 0.4s ease;
+  outline: none; /* ← Quitar outline por defecto */
 }
 
 .scroll-to-top img {
-  width: 60px;
-  height: 60px;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+  width: 90px;
+  height: 100px;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0));
 }
 
 .scroll-to-top.show {
@@ -24,4 +25,16 @@
 
 .scroll-to-top:hover {
   transform: translateY(-6px) scale(1.05);
+}
+
+/* ← AGREGAR ESTAS NUEVAS REGLAS */
+.scroll-to-top:focus {
+  background: transparent !important;
+  outline: none !important;
+}
+
+.scroll-to-top:active {
+  background: transparent !important;
+  outline: none !important;
+  transform: translateY(-4px) scale(1.02);
 }

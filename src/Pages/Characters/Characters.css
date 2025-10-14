@@ -50,15 +50,17 @@
 
 .characters-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(340px, 340px)); /* ← Mismo ancho fijo */
   gap: 2rem;
   margin-bottom: 2rem;
-  align-items: stretch; /* Asegura que todas las tarjetas tengan la misma altura */
+  align-items: stretch;
+  justify-content: center; /* ← Centrar las tarjetas */
 }
 
 /* Asegurar que todas las tarjetas tengan la misma altura */
 .characters-grid .character-card {
   height: 100%;
+  width: 340px; /* ← Mismo ancho fijo */
 }
 
 .error-container {

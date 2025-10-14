@@ -39,10 +39,12 @@
 
 /* Contenedor de imagen mejorado */
 .character-image {
-  width: 100%;
+  width: 80%;
   height: 250px;
   overflow: hidden;
   position: relative;
+  margin: 1rem auto 0 auto;
+  border-radius: 15%;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
@@ -66,7 +68,7 @@
   object-position: center;
   transition: transform 0.4s ease;
   padding: 10px;
-  background: transparent;
+  background: #2d374800;
 }
 
 .character-card:hover .character-image img {
