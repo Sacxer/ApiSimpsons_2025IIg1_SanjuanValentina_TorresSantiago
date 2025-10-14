@@ -1,0 +1,56 @@
+.characters-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.characters-page h2 {
+  text-align: center;
+  color: #000;
+  margin-bottom: 1rem;
+}
+
+.page-info2 {
+  text-align: center;
+  color: #fffcfc;
+  margin-bottom: 2rem;
+}
+
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+  align-items: stretch; /* Asegura que todas las tarjetas tengan la misma altura */
+}
+
+/* Asegurar que todas las tarjetas tengan la misma altura */
+.characters-grid .character-card {
+  height: 100%;
+}
+
+.error-container {
+  text-align: center;
+  padding: 2rem;
+  color: #d40000;
+}
+
+.error-container button {
+  padding: 0.5rem 1rem;
+  background: #ffd90f;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .characters-page {
+    padding: 1rem;
+  }
+  
+  .characters-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

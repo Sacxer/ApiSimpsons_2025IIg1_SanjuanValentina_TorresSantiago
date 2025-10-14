@@ -1,0 +1,271 @@
+.home-container {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Fondo de nubes */
+.clouds-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../assets/img1.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: -1;
+}
+
+/* Header con título */
+.simpsons-header {
+  position: relative;
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+.title-container {
+  text-align: center;
+  animation: fadeInDown 1s ease-out;
+}
+
+.simpsons-title {
+  max-width: 600px;
+  width: 90%;
+  height: auto;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Sección principal */
+.home-main-content {
+  position: relative;
+  min-height: 60vh;
+  padding: 4rem 2rem;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease;
+}
+
+.home-main-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.clouds-section {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.clouds-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 3rem;
+  align-items: start;
+}
+
+/* Tarjetas-nube */
+.cloud-card {
+  background: white;
+  border-radius: 50px 50px 50px 0;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: floatIn 0.8s ease forwards, float 3s ease-in-out infinite;
+  border: 3px solid #f0f0f0;
+}
+
+.cloud-card:nth-child(even) {
+  border-radius: 50px 50px 0 50px;
+}
+
+.cloud-content {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.cloud-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.cloud-card h3 {
+  font-family: 'Simpsonfont', 'Comic Neue', cursive;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.cloud-card p {
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+.cloud-btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border: 2px solid;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cloud-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Footer con Springfield */
+.springfield-footer {
+  position: relative;
+  height: 40vh;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(139, 195, 74, 0.1) 20%,
+    rgba(76, 175, 80, 0.3) 40%,
+    rgba(56, 142, 60, 0.6) 60%,
+    rgba(27, 94, 32, 0.8) 80%,
+    rgba(27, 94, 32, 0.9) 100%
+  );
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.springfield-footer.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.springfield-overlay {
+  text-align: center;
+  padding: 2rem;
+  color: white;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.springfield-overlay h3 {
+  font-family: 'Simpsonfont', 'Comic Neue', cursive;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #FFD90F;
+}
+
+.springfield-overlay p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Animaciones */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .clouds-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .cloud-card {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* ===============================
+   Sección de Creadores
+=================================*/
+.creators-section {
+  margin: 30px 0 0 0;
+  text-align: center;
+  padding: 60px 20px;
+  background: #fff8dc;
+  border-top: 4px solid #FFD90F;
+}
+
+.creators-section h2 {
+  color: #0f1c2e;
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.creators-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+.creator-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  padding: 20px;
+  transition: transform 0.2s ease;
+  width: 100%;
+  max-width: 240px;
+}
+
+.creator-card:hover {
+  transform: translateY(-6px);
+}
+
+.creator-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.creator-card h4 {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.creator-card p {
+  font-size: 0.9rem;
+  color: #666;
+}
