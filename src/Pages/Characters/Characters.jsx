@@ -6,32 +6,37 @@ import './Characters.css';
 
 function Characters() {
   const [allCharacters, setAllCharacters] = useState([]);
+  const [filteredCharacters, setFilteredCharacters] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [searching, setSearching] = useState(false);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const CHARACTERS_PER_PAGE = 10;
 
-  // ✅ 1. Cargar cantidad total de personajes una sola vez
+  // 🟡 Cargar todos los personajes una vez
   useEffect(() => {
     const fetchAllCharacters = async () => {
       try {
         setLoading(true);
-        setError(null);
+        const all = [];
+        let page = 1;
+        let hasMore = true;
 
-        const response = await fetch('https://thesimpsonsapi.com/api/characters?page=1');
-        const data = await response.json();
+        while (hasMore) {
+          const res = await fetch(`https://thesimpsonsapi.com/api/characters?page=${page}`);
+          const data = await res.json();
+          all.push(...data.results);
 
-        if (!response.ok) {
-          throw new Error('Error al cargar los personajes');
+          if (!data.next) hasMore = false;
+          else page++;
         }
 
-        const totalCharacters = data.count;
-        const calculatedTotalPages = Math.ceil(totalCharacters / CHARACTERS_PER_PAGE);
-        setTotalPages(calculatedTotalPages);
+        setAllCharacters(all);
+        setFilteredCharacters(all);
       } catch (err) {
-        setError(err.message);
+        setError('Error al cargar los personajes');
       } finally {
         setLoading(false);
       }
@@ -40,37 +45,49 @@ function Characters() {
     fetchAllCharacters();
   }, []);
 
-  // ✅ 2. Cargar personajes según la página actual
-  useEffect(() => {
-    const fetchCharactersForPage = async (page) => {
+  // 🧠 Buscar por nombre parcial o por ID exacto
+  const handleSearch = async (e) => {
+    const value = e.target.value.toLowerCase();
+    setSearchTerm(value);
+
+    if (value.trim() === '') {
+      setFilteredCharacters(allCharacters);
+      setCurrentPage(1);
+      return;
+    }
+
+    // 🔹 Si es número → buscar por ID exacto (API)
+    if (/^\d+$/.test(value)) {
       try {
-        setLoading(true);
-        setError(null);
-
-        // La API devuelve 20 personajes por página, ajustamos a 10
-        const apiPage = Math.ceil((page * CHARACTERS_PER_PAGE) / 20);
-        const response = await fetch(`https://thesimpsonsapi.com/api/characters?page=${apiPage}`);
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error('Error al cargar los personajes');
+        setSearching(true);
+        const res = await fetch(`https://thesimpsonsapi.com/api/characters/${value}`);
+        if (res.ok) {
+          const data = await res.json();
+          setFilteredCharacters([data]);
+        } else {
+          setFilteredCharacters([]);
         }
-
-        const startIndex = ((page - 1) * CHARACTERS_PER_PAGE) % 20;
-        const charactersToShow = data.results.slice(startIndex, startIndex + CHARACTERS_PER_PAGE);
-
-        setAllCharacters(charactersToShow);
-      } catch (err) {
-        setError(err.message);
+      } catch {
+        setFilteredCharacters([]);
       } finally {
-        setLoading(false);
+        setSearching(false);
       }
-    };
+      return;
+    }
 
-    fetchCharactersForPage(currentPage);
-  }, [currentPage]);
+    // 🔹 Si no es número → búsqueda parcial por nombre localmente
+    const filtered = allCharacters.filter((ch) =>
+      ch.name.toLowerCase().includes(value)
+    );
 
-  // ✅ 3. Cambiar de página
+    setFilteredCharacters(filtered);
+    setCurrentPage(1);
+  };
+
+  const startIndex = (currentPage - 1) * CHARACTERS_PER_PAGE;
+  const visibleCharacters = filteredCharacters.slice(startIndex, startIndex + CHARACTERS_PER_PAGE);
+  const totalPages = Math.ceil(filteredCharacters.length / CHARACTERS_PER_PAGE);
+
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
@@ -78,42 +95,45 @@ function Characters() {
     }
   };
 
-  // ✅ 4. Mostrar estados de carga y error
-  if (loading && allCharacters.length === 0) return <Loader />;
+  if (loading || searching) return <Loader />;
+  if (error) return <p className="error-text">{error}</p>;
 
-  if (error) {
-    return (
-      <div className="error-container">
-        <h2>Error</h2>
-        <p>{error}</p>
-        <button onClick={() => setCurrentPage(1)}>Reintentar</button>
-      </div>
-    );
-  }
-
-  // ✅ 5. Render principal
   return (
     <div className="characters-page">
       <div className="clouds-background"></div>
       <h2>Personajes de Los Simpson</h2>
+
+      <input
+        type="text"
+        placeholder="Buscar por nombre o ID..."
+        className="search-input"
+        value={searchTerm}
+        onChange={handleSearch}
+      />
+
       <p className="page-info2">
-        Página {currentPage} de {totalPages} - Mostrando {allCharacters.length} personajes
+        {filteredCharacters.length} resultados encontrados
       </p>
 
       <div className="characters-grid">
-        {allCharacters.map(character => (
-          <CharacterCard key={character.id} character={character} />
-        ))}
+        {visibleCharacters.length > 0 ? (
+          visibleCharacters.map((character) => (
+            <CharacterCard key={character.id} character={character} />
+          ))
+        ) : (
+          <p>No se encontraron personajes.</p>
+        )}
       </div>
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      {filteredCharacters.length > CHARACTERS_PER_PAGE && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
     </div>
   );
 }
 
 export default Characters;
-
