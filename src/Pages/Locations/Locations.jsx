@@ -53,6 +53,7 @@ function Locations() {
 
   return (
     <div className="locations-page">
+      <div className="clouds-background"></div>
       <h1>Lugares de Los Simpson</h1>
       <p className="page-info2">Página {currentPage} de {totalPages} - {locations.length} lugares</p>
       

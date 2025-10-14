@@ -6,9 +6,26 @@
   margin-left: 25%; /* Espacio para la imagen fija */
 }
 
-.episodes-page h1 {
+.negro{
+  color: #000;
+}
+
+.clouds-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../assets/img1.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: -1;
+}
+
+.episodes-page h2 {
   text-align: center;
-  color: var(--text-light);
+  color: rgb(0, 0, 0);
   margin-bottom: 2rem;
   font-family: 'Simpsonfont', cursive;
   font-size: 2.5rem;
@@ -19,7 +36,7 @@
 .episodes-static-image {
   position: fixed;
   left: 1.5rem;
-  top: 25%;
+  top: 60%;
   transform: translateY(-50%);
   width: 25%;
   height: 75%;
@@ -64,7 +81,7 @@
   left: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--text-muted);
+  color: rgb(10, 8, 8);
 }
 
 .search-input {
@@ -73,7 +90,7 @@
   border: 2px solid var(--glass-border);
   border-radius: 25px;
   background: var(--glass-dark);
-  color: var(--text-light);
+  color: rgb(0, 0, 0);
   font-size: 1rem;
   backdrop-filter: var(--glass-blur);
   transition: all 0.3s ease;
@@ -86,7 +103,7 @@
 }
 
 .search-input::placeholder {
-  color: var(--text-muted);
+  color: rgb(0, 0, 0)
 }
 
 .filter-container {
@@ -98,7 +115,7 @@
   border: 2px solid var(--glass-border);
   border-radius: 25px;
   background: var(--glass-dark);
-  color: var(--text-light);
+  color: rgb(0, 0, 0);
   font-size: 1rem;
   backdrop-filter: var(--glass-blur);
   transition: all 0.3s ease;
@@ -218,7 +235,7 @@
 }
 
 .episode-info h3 {
-  color: var(--text-light);
+  color: rgb(0, 0, 0);
   margin: 0 0 1rem 0;
   font-size: 1.3rem;
   line-height: 1.3;
@@ -241,7 +258,7 @@
 }
 
 .air-date {
-  color: var(--text-muted);
+  color: rgb(255, 255, 0);
   font-size: 0.9rem;
   display: flex;
   align-items: center;
@@ -254,7 +271,7 @@
 }
 
 .synopsis {
-  color: var(--text-muted);
+  color: rgb(0, 0, 0);
   line-height: 1.5;
   margin: 0;
   display: -webkit-box;
@@ -269,7 +286,7 @@
 .no-results {
   text-align: center;
   padding: 3rem;
-  color: var(--text-muted);
+  color: rgb(0, 0, 0);
   background: var(--glass-dark);
   border-radius: 15px;
   border: 1px solid var(--glass-border);

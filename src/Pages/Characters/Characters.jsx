@@ -94,6 +94,7 @@ function Characters() {
   // ✅ 5. Render principal
   return (
     <div className="characters-page">
+      <div className="clouds-background"></div>
       <h2>Personajes de Los Simpson</h2>
       <p className="page-info2">
         Página {currentPage} de {totalPages} - Mostrando {allCharacters.length} personajes

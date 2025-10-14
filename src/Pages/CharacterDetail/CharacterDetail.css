@@ -85,7 +85,8 @@
 
 .description p {
   line-height: 1.6;
-  color: #ffffff;
+  color: #000000;
+  font-weight: bold;
 }
 
 .phrases ul {
@@ -94,7 +95,7 @@
 }
 
 .phrases li {
-  color: #333;
+  color: #000000;
   background: #fff9c4;
   margin-bottom: 0.5rem;
   padding: 0.75rem;
@@ -105,7 +106,7 @@
 
 .first-appearance p {
   margin: 0.5rem 0;
-  color: #ffffff;
+  color: #000000;
 }
 
 @media (max-width: 768px) {

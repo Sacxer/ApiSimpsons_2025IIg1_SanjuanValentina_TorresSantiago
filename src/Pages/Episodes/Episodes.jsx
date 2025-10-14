@@ -99,6 +99,7 @@ function Episodes() {
 
   return (
     <div className="episodes-page">
+      <div className="clouds-background"></div>
       {/* Imagen estática fija */}
       <div className="episodes-static-image">
         <img 
@@ -107,7 +108,7 @@ function Episodes() {
         />
       </div>
 
-      <h1>Episodios de Los Simpson</h1>
+      <h2>Episodios de Los Simpson</h2>
       
       {/* Barra de búsqueda y filtros */}
       <div className="search-filter-bar">
@@ -140,7 +141,7 @@ function Episodes() {
 
       {/* Contador de resultados */}
       <div className="results-info">
-        <span>{filteredEpisodes.length} episodios encontrados</span>
+        <span className='negro'>{filteredEpisodes.length} episodios encontrados</span>
         {(searchTerm || selectedSeason) && (
           <button 
             className="clear-btn"
