@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://sacxer.github.io/entregable3/",
+  "homepage": "https://sacxer.github.io/ApiSimpsons_2025IIg1_SanjuanValentina_TorresSantiago/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
