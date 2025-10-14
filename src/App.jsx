@@ -1,6 +1,6 @@
 // App.jsx
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import NavBar from './Components/NavBar/NavBar';
 import Footer from './Components/Footer/Footer'; // <-- crear este componente
@@ -14,7 +14,7 @@ import './App.css';
 
 function App() {
   return (
-    <BrowserRouter basename="/entregable3">
+    <HashRouter>
       <div className="app-root">
         {/* NavBar persistente */}
         <header>
@@ -46,7 +46,7 @@ function App() {
         <Footer />
         <ScrollToTopButton />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
