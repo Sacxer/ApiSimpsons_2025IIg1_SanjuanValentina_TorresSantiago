@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import './Navbar.css';
+import resortera from '../../assets/resortera.png';
 
 function Navbar() {
   const location = useLocation();
@@ -27,7 +28,7 @@ function Navbar() {
         {/* Logo */}
         <Link to="/" className="nav-logo" onClick={closeMenu}>
           <div className="logo-icon">
-            <i className="bi bi-controller"></i>
+            <img src={resortera} alt="resortera" />
           </div>
           <span className="logo-text">Simpsons Universe</span>
         </Link>
@@ -64,7 +65,7 @@ function Navbar() {
           <div className="mobile-menu-content">
             <div className="mobile-menu-header">
               <Link to="/" className="mobile-logo" onClick={closeMenu}>
-                <i className="bi bi-controller"></i>
+                <img src={resortera} alt="resortera" />
                 <span>Simpsons Universe</span>
               </Link>
               <button className="mobile-close" onClick={closeMenu}>

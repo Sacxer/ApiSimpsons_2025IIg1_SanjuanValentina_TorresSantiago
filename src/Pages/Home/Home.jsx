@@ -1,16 +1,18 @@
 import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import imagenHome from '../../assets/imagenHome.png';
-import santiagoSim from '../../assets/santiagoSim.jpg';
-import valentinaSim from '../../assets/valentinaSim.jpg';
-import placeholderCharacter from '../../assets/noImage.png'; // 🔹 Imagen local por si falla
+import santiagoSim from '../../assets/santiagoSim.png';
+import valentinaSim from '../../assets/valentinaSim.png';
+import placeholderCharacter from '../../assets/noImage.png';
 import './Home.css';
 
 function Home() {
   const [isVisible, setIsVisible] = useState(false);
   const [characters, setCharacters] = useState([]);
+  const [chunkSize, setChunkSize] = useState(3); // 👈 tamaño dinámico
   const springfieldRef = useRef(null);
 
+  // 🌤️ Animación de scroll
   useEffect(() => {
     setIsVisible(true);
 
@@ -27,7 +29,7 @@ function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 🔹 Cargar personajes populares desde la API
+  // 📡 Cargar personajes
   useEffect(() => {
     fetch('https://thesimpsonsapi.com/api/characters')
       .then(res => res.json())
@@ -35,28 +37,55 @@ function Home() {
         const results = Array.isArray(data)
           ? data
           : Array.isArray(data.results)
-          ? data.results
-          : [];
-        setCharacters(results.slice(0, 8)); // Mostrar 8 personajes
+            ? data.results
+            : [];
+        setCharacters(results.slice(0, 12)); // Más personajes para slider
       })
       .catch(err => console.error('Error cargando personajes:', err));
   }, []);
+
+  // 📱 Detectar tamaño de pantalla y ajustar chunkSize
+  useEffect(() => {
+    const updateChunkSize = () => {
+      if (window.innerWidth < 768) {
+        setChunkSize(1); // Celular
+      } else {
+        setChunkSize(3); // Portátil o escritorio
+      }
+    };
+
+    updateChunkSize(); // Ejecutar al cargar
+    window.addEventListener('resize', updateChunkSize);
+    return () => window.removeEventListener('resize', updateChunkSize);
+  }, []);
+
+  // 🔹 Dividir personajes según chunkSize
+  const chunkArray = (arr, size) => {
+    const chunks = [];
+    for (let i = 0; i < arr.length; i += size) {
+      chunks.push(arr.slice(i, i + size));
+    }
+    return chunks;
+  };
+
+  const characterGroups = chunkArray(characters, chunkSize);
 
   return (
     <div className="home-container">
       <div className="clouds-background"></div>
 
       {/* Header */}
-      <header className="simpsons-header">
+      <section className="simpsons-header">
         <div className="title-container">
           <img src={imagenHome} alt="The Simpsons" className="simpsons-title" />
         </div>
-      </header>
+      </section>
 
       <main className={`home-main-content ${isVisible ? 'visible' : ''}`}>
         {/* Tarjetas principales */}
         <div className="clouds-section">
           <div className="clouds-container">
+            {/* Personajes */}
             <div className="cloud-card" style={{ animationDelay: '0s' }}>
               <div className="cloud-content">
                 <div className="cloud-icon" style={{ color: '#FFD90F' }}>
@@ -74,6 +103,7 @@ function Home() {
               </div>
             </div>
 
+            {/* Lugares */}
             <div className="cloud-card" style={{ animationDelay: '0.2s' }}>
               <div className="cloud-content">
                 <div className="cloud-icon" style={{ color: '#4A90E2' }}>
@@ -91,6 +121,7 @@ function Home() {
               </div>
             </div>
 
+            {/* Episodios */}
             <div className="cloud-card" style={{ animationDelay: '0.4s' }}>
               <div className="cloud-content">
                 <div className="cloud-icon" style={{ color: '#FF6B6B' }}>
@@ -110,54 +141,74 @@ function Home() {
           </div>
         </div>
 
-        {/* 🟨 Personajes Populares */}
-        <section className="popular-characters">
-          <h2 className="simpson-font">Personajes Populares</h2>
+        {/* 🟨 Carrusel de personajes */}
+        <section className="popular-characters my-5">
+          <h2 className="titlePersonajes simpson-font mb-4">Personajes Populares</h2>
 
-          <div className="characters-grid">
-            {characters.length > 0 ? (
-              characters.map((character) => {
-                const imageUrl = character.portrait_path
-                  ? `https://cdn.thesimpsonsapi.com/500${character.portrait_path}`
-                  : placeholderCharacter;
+          {characters.length > 0 ? (
+            <div id="popularCharactersCarousel" className="carousel slide" data-bs-ride="carousel">
+              <div className="carousel-inner">
+                {characterGroups.map((group, index) => (
+                  <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
+                    <div className="d-flex justify-content-center gap-3">
+                      {group.map(character => {
+                        const imageUrl = character.portrait_path
+                          ? `https://cdn.thesimpsonsapi.com/500${character.portrait_path}`
+                          : placeholderCharacter;
+                        return (
+                          <div key={character.id} className="character-card-simpson">
+                            <img
+                              src={imageUrl}
+                              alt={character.name}
+                              className="character-img"
+                              onError={(e) => { e.target.src = placeholderCharacter; }}
+                            />
+                            <h3 className="character-name">{character.name}</h3>
+                            <p className="character-occupation frase-corta">{character.occupation || 'Desconocida'}</p>
 
-                return (
-                  <div key={character.id} className="character-card-simpson">
-                    <img
-                      src={imageUrl}
-                      alt={character.name}
-                      className="character-img"
-                      onError={(e) => {
-                        e.target.src = placeholderCharacter;
-                      }}
-                    />
-                    <h3 className="character-name">{character.name}</h3>
-                    <p className="character-occupation frase-corta">{character.occupation || 'Desconocida'}</p>
+                            <div className="character-info">
+                              <span className="badge age">Edad: {character.age || 'N/A'}</span>
+                              <span className={`badge status ${character.status === 'Alive' ? 'alive' : 'dead'}`}>
+                                {character.status || 'Desconocido'}
+                              </span>
+                            </div>
 
-                    <div className="character-info">
-                      <span className="badge age">Edad: {character.age || 'N/A'}</span>
-                      <span
-                        className={`badge status ${
-                          character.status === 'Alive' ? 'alive' : 'dead'
-                        }`}
-                      >
-                        {character.status || 'Desconocido'}
-                      </span>
+                            {character.phrases && character.phrases.length > 0 && (
+                              <p className="character-quote frase-corta">"{character.phrases[0]}"</p>
+                            )}
+                          </div>
+                        );
+                      })}
                     </div>
-
-                    {character.phrases && character.phrases.length > 0 && (
-                      <p className="character-quote frase-corta">"{character.phrases[0]}"</p>
-                    )}
                   </div>
-                );
-              })
-            ) : (
-              <p className="loading-text">Cargando personajes...</p>
-            )}
-          </div>
+                ))}
+              </div>
+
+              <button
+                className="carousel-control-prev"
+                type="button"
+                data-bs-target="#popularCharactersCarousel"
+                data-bs-slide="prev"
+              >
+                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span className="visually-hidden">Anterior</span>
+              </button>
+              <button
+                className="carousel-control-next"
+                type="button"
+                data-bs-target="#popularCharactersCarousel"
+                data-bs-slide="next"
+              >
+                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                <span className="visually-hidden">Siguiente</span>
+              </button>
+            </div>
+          ) : (
+            <p className="loading-text">Cargando personajes...</p>
+          )}
         </section>
 
-        {/* 🧠 Creadores */}
+        {/* Creadores */}
         <section className="creators-section">
           <h2 className="simpson-font">Creadores del Proyecto</h2>
           <div className="creators-grid">
@@ -173,7 +224,7 @@ function Home() {
             </div>
             <div className="creator-card">
               <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/512px-ChatGPT_logo.svg.png"
+                src="https://upload.wikimedia.org/wikipedia/commons/1/13/ChatGPT-Logo.png"
                 alt="Creador 3"
               />
               <h4>ChatGPT</h4>

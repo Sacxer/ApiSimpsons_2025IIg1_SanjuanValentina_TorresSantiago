@@ -57,7 +57,7 @@ function CharacterDetail() {
       <Link to="/personajes" className="back-btn">← Volver a Personajes</Link>
       <div className="clouds-background"></div>
       <div className="character-detail-content">
-        <div className="character-image">
+        <div className="character-image2 character-image">
           <img 
             src={imageUrl} 
             alt={character.name}

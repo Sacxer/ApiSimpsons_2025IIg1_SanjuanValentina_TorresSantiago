@@ -47,6 +47,10 @@
   position: sticky;
   top: 2rem;
 }
+.character-image2 {
+  top: 8rem;
+}
+
 
 .character-image img {
   width: 100%;
