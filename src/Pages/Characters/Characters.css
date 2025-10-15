@@ -82,7 +82,6 @@
   .characters-page {
     padding: 1rem;
   }
-  
   .characters-grid {
     grid-template-columns: 1fr;
     gap: 1rem;

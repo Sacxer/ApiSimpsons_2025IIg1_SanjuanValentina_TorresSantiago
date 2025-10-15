@@ -294,6 +294,7 @@
 /* Responsive */
 @media (max-width: 768px) {
   .character-image {
+    margin-top: 2rem !important;
     height: 200px;
   }
   

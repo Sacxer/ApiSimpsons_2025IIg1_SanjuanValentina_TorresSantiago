@@ -9,8 +9,11 @@
   --container-max: 1100px;
 }
 
+
+
 /* Footer base */
 .site-footer {
+  z-index: 1500;
   background: linear-gradient(180deg, rgba(15,26,35,1) 0%, rgba(18,30,40,1) 100%);
   color: white;
   padding: 28px 16px;
@@ -34,6 +37,13 @@
   display: flex;
   gap: 12px;
   align-items: center;
+}
+
+.friends-img img {
+  width: 300px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12), inset 0 -4px 8px rgba(0,0,0,0.08);
 }
 
 .logo-circle {

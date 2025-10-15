@@ -43,8 +43,9 @@ function App() {
         </main>
 
         {/* Footer persistente */}
-        <Footer />
         <ScrollToTopButton />
+        <Footer />
+        
       </div>
     </HashRouter>
   );
